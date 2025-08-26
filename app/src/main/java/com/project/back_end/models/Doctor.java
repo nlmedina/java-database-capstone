@@ -1,5 +1,21 @@
 package com.project.back_end.models;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
+@Entity
 public class Doctor {
 
 // @Entity annotation:
@@ -61,5 +77,31 @@ public class Doctor {
 // 8. Getters and Setters:
 //    - Standard getter and setter methods are provided for all fields: id, name, specialty, email, password, phone, and availableTimes.
 
-}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @NotNull
+    @Size(min = 3, max = 100)
+    private String name;
+
+    @NotNull
+    @Size(min = 3, max = 50)
+    private String specialty;
+
+    @Email
+    @NotNull
+    @Column(unique = true)
+    private String email;
+
+    @Size(min = 6)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
+
+    @NotNull
+    @Pattern(regexp = "\\d{10}")
+    private String phone;
+
+    @ElementCollection
+    private List<String> availableTimes;
+}
