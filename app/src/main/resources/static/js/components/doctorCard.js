@@ -1,7 +1,7 @@
 // Import required functions
-import { showBookingOverlay } from "./loggedPatient.js";
-import { deleteDoctor } from "./services/doctorServices.js";
-import { getPatientData } from "./services/patientServices.js";
+import { showBookingOverlay } from "../loggedPatient.js";
+import { deleteDoctor } from "../services/doctorServices.js";
+import { getPatientData } from "../services/patientServices.js";
 
 // Define the function
 export function createDoctorCard(doctor) {
