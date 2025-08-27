@@ -1,94 +1,199 @@
-/*this is the style sheet for the adminDashboard. */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-/* 
-Global Reset (`*`)
+html,
+body {
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
 
-* Purpose: Ensure consistent layout across all browsers.
-* Properties:
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-  * `margin: 0` — removes default outer spacing from all elements.
-  * `padding: 0` — removes default inner spacing.
-  * `box-sizing: border-box` — ensures padding and borders are included within the total width/height of elements.
+h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 50px;
+  color: #003e3e;
+}
 
-Base HTML & Body (`html, body`)
+.main-content {
+  flex-grow: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-image: url("../images/defineRole/defineRole.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 
-* Purpose: Establish a full-height layout and apply a standard font across the page.
-* Properties:
+#searchBar {
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 600px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  align-self: center;
+}
 
-  * `height: 100%` — allows containers to stretch to the full viewport height.
-  * `font-family: Arial, sans-serif` — applies a clean, readable sans-serif font.
+select {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 200px;
+  align-self: center;
+}
 
-Main Layout Wrapper (`.wrapper`)
+button {
+  background-color: #a62b1f;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  margin-top: 20px;
+  width: 200px;
+  cursor: pointer;
+  font-size: 16px;
+}
 
-* Purpose: Create a flexible, vertical layout that fills the entire screen.
-* Properties:
+button:hover {
+  background-color: #a62b1f;
+}
 
-  * `display: flex` — enables flexbox for layout control.
-  * `flex-direction: column` — stacks children vertically.
-  * `min-height: 100vh` — ensures the wrapper always covers full screen height.
+.adminBtn {
+  background-color: #f4f4f4;
+  color: #333;
+  font-weight: bold;
+  width: 110px;
+  padding: 10px 0;
+  border: none;
+  cursor: pointer;
+}
 
-Section Heading (`h2`)
+.adminBtn:hover {
+  color: #a62b1f;
+}
 
-* Purpose: Style the headings prominently for section separation.
-* Properties:
+#content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
 
-  * `font-size: 32px` — makes the heading large and noticeable.
-  * `font-weight: bold` — emphasizes text.
-  * `margin-bottom: 50px` — creates space below the heading.
-  * `color: #003e3e` — uses a strong teal for visual anchoring.
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+}
 
-Main Content Section (`.main-content`)
+#modal-body {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 90%;
+}
 
-* Purpose: Layout the main content with padding and a background image.
-* Properties:
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+}
 
-  * `flex-grow: 1` — lets the content fill the available vertical space.
-  * `padding: 40px` — adds internal spacing around content.
-  * `display: flex` and `flex-direction: column` — organizes content in a vertical stack.
-  * `text-align: center` — centers the text.
-  * `background-image: url("index.png")` — sets a full-screen dashboard background.
-  * `background-size: cover` — ensures the image covers the whole section.
-  * `background-position: center` — centers the image.
-  * `background-repeat: no-repeat` — avoids tiling the image.
-  * `background-attachment: fixed` — fixes the image while scrolling.
+.close:hover {
+  color: #000;
+}
 
-Primary Button (`button`)
+@media (max-width: 768px) {
+  .main-content {
+    padding: 20px;
+  }
 
-* Purpose: Design prominent, interactive buttons for main actions.
+  #searchBar {
+    width: 90%;
+    margin: 10px auto;
+  }
 
-* Properties:
+  select {
+    width: 90%;
+    margin: 10px auto;
+  }
 
-  * `background-color: #A62B1F` — sets a bold red color.
-  * `color: white` — makes text stand out.
-  * `border: none` — removes any outline/border.
-  * `border-radius: 12px` — creates rounded corners.
-  * `padding: 10px 20px` — gives space inside the button.
-  * `margin-top: 20px` — adds spacing above the button.
-  * `width: 200px` — ensures consistent button width.
-  * `cursor: pointer` — shows a hand icon on hover.
-  * `font-size: 16px` — makes the text readable.
+  button {
+    width: 90%;
+    margin: 20px auto 0;
+  }
 
-* On Hover:
+  #modal-body {
+    width: 90%;
+    padding: 20px;
+  }
 
-  * Retains the same red background to maintain branding.
+  h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
 
-Admin Button (`.adminBtn`)
+  #content {
+    flex-direction: column;
+    align-items: center;
+  }
+}
 
-* Purpose: Provide a secondary button style for admin-specific actions.
+@media (max-width: 480px) {
+  .main-content {
+    padding: 10px;
+  }
 
-* Properties:
+  #searchBar,
+  select,
+  button {
+    width: 100%;
+    font-size: 14px;
+  }
 
-  * `background-color: #f4f4f4` — uses a light grey background.
-  * `color: #333` — uses dark text for contrast.
-  * `font-weight: bold` — emphasizes text.
-  * `width: 110px` — smaller, compact width.
-  * `padding: 10px 0` — vertical padding only.
-  * `border: none` — clean look.
-  * `cursor: pointer` — indicates it's clickable.
+  h2 {
+    font-size: 20px;
+  }
 
-* On Hover**:
+  .adminBtn {
+    width: 100%;
+    font-size: 14px;
+  }
 
-   Changes text color to `#A62B1F` for brand consistency while keeping the background same.
+  #modal-body {
+    padding: 15px;
+  }
 
-
-*/
+  .close {
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+  }
+}
