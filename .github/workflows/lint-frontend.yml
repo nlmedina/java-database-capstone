@@ -1,0 +1,70 @@
+name: Lint Frontend
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install linters globally
+        run: |
+          npm install -g htmlhint stylelint eslint
+
+      - name: Create minimal linter configs
+        run: |
+          # ESLint config
+          cat > .eslintrc.json << 'EOF'
+          {
+            "env": {
+              "browser": true,
+              "es2021": true
+            },
+            "extends": ["eslint:recommended"],
+            "parserOptions": {
+              "ecmaVersion": "latest",
+              "sourceType": "script"
+            },
+            "rules": {}
+          }
+          EOF
+
+          # Stylelint config (empty rules to avoid requiring shared configs)
+          cat > .stylelintrc.json << 'EOF'
+          {
+            "rules": {}
+          }
+          EOF
+
+          # HTMLHint config (basic defaults)
+          cat > .htmlhintrc << 'EOF'
+          {
+            "attr-lowercase": true,
+            "tagname-lowercase": true
+          }
+          EOF
+
+      - name: Lint HTML with HTMLHint
+        run: |
+          # Support both potential HTML locations; do not fail the build on findings
+          htmlhint "app/src/main/resources/static/pages/**/*.html" "app/src/main/resources/static/assets/pages/**/*.html" || true
+
+      - name: Lint CSS with Stylelint
+        run: |
+          # Allow empty input to avoid errors if path has no matches
+          stylelint "app/src/main/resources/static/assets/css/**/*.css" --allow-empty-input || true
+
+      - name: Lint JS with ESLint
+        run: |
+          # Avoid errors on unmatched patterns and do not fail the build on findings
+          eslint "app/src/main/resources/static/js/**/*.js" "app/src/main/resources/static/assets/js/**/*.js" --no-error-on-unmatched-pattern || true
