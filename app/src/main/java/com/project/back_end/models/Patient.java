@@ -88,10 +88,6 @@ public class Patient {
     @Column(unique = true)
     private String email;
 
-    @NotNull
-    @Size(min = 3, max = 50)
-    private String specialty;
-
     @Size(min = 6)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
